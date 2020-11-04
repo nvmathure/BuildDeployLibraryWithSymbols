@@ -1,0 +1,29 @@
+trigger:
+- main
+
+pool:
+  vmImage: windows-latest
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: Build Library and Generate Package and Symbols
+  inputs:
+    command: 'build'
+    arguments: --configuration Release --output $(Build.ArtifactStagingDirectory)
+    projects: 'src\BuildDeployLibraryWithSymbols.sln'
+
+- task: NuGetToolInstaller@1
+  displayName: Install NuGet Tools
+  inputs:
+    checkLatest: true
+  
+- task: NuGetCommand@2
+  displayName: Publish NuGet Package
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;$(Build.ArtifactStagingDirectory)/**/*.snupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '1c9c5126-e4e9-4794-887d-0c3ea93f6a65/bc840cf9-8538-4b77-ac38-dbb6f65cd8fa'
+    
+    
+  
