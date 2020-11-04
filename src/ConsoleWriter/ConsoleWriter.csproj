@@ -6,5 +6,8 @@
     <RepositoryType>GIT</RepositoryType>
     <RepositoryUrl>https://dev.azure.com/nandanvmathure/CloudNDevOps.NET/_git/BuildDeployLibraryWithSymbols</RepositoryUrl>
   </PropertyGroup>
-
+  <PropertyGroup>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
 </Project>
